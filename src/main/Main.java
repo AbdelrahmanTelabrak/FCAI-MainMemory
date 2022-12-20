@@ -1,27 +1,54 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		IAlgorithm algo = new FirstFit();
+		Scanner in = new Scanner(System.in);
+		Scanner str = new Scanner(System.in);
+		IAlgorithm algo ;
 		ArrayList<Partition> partitions = new ArrayList<>();
-		partitions.add(new Partition("Partition0", 90, null));
-		partitions.add(new Partition("Partition1", 20, null));
-		partitions.add(new Partition("Partition2", 5, null));
-		partitions.add(new Partition("Partition3", 30, null));
-		partitions.add(new Partition("Partition4", 120, null));
-		partitions.add(new Partition("Partition5", 80, null));
+		
+		
+		System.out.print("Enter number of partition: ");
+		int no_of_partitions = in.nextInt();
+		for(int i=0;i<no_of_partitions;i++) {
+			System.out.print("Enter Partition size: ");
+			int  s = in.nextInt();
+			
+			partitions.add(new Partition("Partition"+i, s, null));
+		}
 		
 		ArrayList<Process> processList = new ArrayList<>();
+		System.out.print("Enter number of process: ");
+		int no_of_processes = in.nextInt();
 		
-		processList.add(new Process("P1", 15));
-		processList.add(new Process("P2", 90));
-		processList.add(new Process("P3", 30));
-		processList.add(new Process("P4", 100));
+		for(int i=0;i<no_of_processes;i++) {
+			System.out.print("Process name and its size: ");
+			String name = str.nextLine();
+			int s= in.nextInt();
+			processList.add(new Process(name, s));
+		}
+		
 
-		algo.run(partitions, processList);
+		System.out.println("Select the policy you want to apply:");
+		System.out.println("1. First fit");
+		System.out.println("1. Worst fit");
+		System.out.println("1. Best fit");
+		System.out.print("option:");
+		int option= in.nextInt();
+		if(option==1) {
+			algo = new FirstFit();
+			algo.run(partitions, processList);
+		}else if(option==2) {
+			algo = new WorstFit();
+			algo.run(partitions, processList);
+		}else if(option==3) {
+			algo = new BestFit();
+			algo.run(partitions, processList);
+		}
 	}
 	
 	
