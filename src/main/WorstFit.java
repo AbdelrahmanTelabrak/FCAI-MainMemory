@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WorstFit implements IAlgorithm{
+	public int partitionCounter;
+
 
 	@Override
 	public void run(ArrayList<Partition> partitions, ArrayList<Process> processList) {
 		// TODO Auto-generated method stub
+		partitionCounter = partitions.size();
 		boolean status = false;
 		ArrayList<Process> unusedProcess = new ArrayList<>();
 		
@@ -61,7 +64,9 @@ public class WorstFit implements IAlgorithm{
 		for(int i=0; i<partitions.size();i++) {
 			newPartitions.add(partitions.get(i));
 			if(i==index) {
-				newPartitions.add(new Partition(("Partition"+partitions.size()), partitions.get(i).size - processSize, null));
+				partitionCounter++;
+				newPartitions.add(new Partition(("Partition"+partitionCounter), partitions.get(i).size - processSize, null));
+				partitionCounter++;
 			}
 		}
 		return newPartitions;
@@ -82,6 +87,7 @@ public class WorstFit implements IAlgorithm{
 		}
 		
 		compactPartitions.add(newPartition);
+		partitionCounter++;
 		
 		
 		
